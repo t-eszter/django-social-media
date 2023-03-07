@@ -35,8 +35,9 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     # 'channels',
-    'smApp.apps.SmappConfig',
+    'smApp',
     'rest_framework',
     'django.contrib.admin',
     #allows user authentication
@@ -49,9 +50,9 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-	    'DEFAULT_PERMISSION_CLASSES': [
-	        'rest_framework_permissions.AllowAny',
-	    ]
+	'DEFAULT_PERMISSION_CLASSES': [
+	    'rest_framework_permissions.AllowAny',
+	]
 }
 
 MIDDLEWARE = [
@@ -83,7 +84,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'smProject.wsgi.application'
-ASGI_APPLICATION = 'smProject.routing.application'
+ASGI_APPLICATION = 'smProject.asgi.application'
 
 
 # Database
@@ -143,9 +144,19 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': "channel_redis.core.RedisChannelLayer",
+#         'CONFIG': {
+#             # 'hosts': [('127.0.0.1', 6379),('127.0.0.1', 8000),('127.0.0.1', 8001)],
+#             'hosts': [('127.0.0.1', 6379)],
+#         },   
+#     },
+# }
+
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': "channel_redis.core.RedisChannelLayer",
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
         'CONFIG': {
             'hosts': [('127.0.0.1', 6379)]
         },   

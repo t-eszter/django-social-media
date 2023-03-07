@@ -235,3 +235,15 @@ def search(request):
 
         
     return render(request, "search.html", {'user_profile': user_profile, 'searched_list': searched_list})
+
+
+# chat views
+
+def chatIndex(request):
+    return render(request, 'chat/index.html')
+
+def room(request, room_name):
+    return render(request, 'chat/room.html', {
+        'room_name': room_name
+    })
+

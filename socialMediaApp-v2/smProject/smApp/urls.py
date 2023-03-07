@@ -17,4 +17,7 @@ urlpatterns = [
     path('profile/<str:username>', views.profile, name='profile'),
     path('followers', views.followers, name='followers'),
     path('search', views.search, name='search'),
+    # chat
+    path('chat', views.chatIndex, name='chatIndex'),
+    path('chat/<str:room_name>/', views.room, name='room'),
 ]
