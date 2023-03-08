@@ -35,8 +35,9 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    # required for chat
     'daphne',
-    # 'channels',
+    'channels',
     'smApp',
     'rest_framework',
     'django.contrib.admin',
@@ -49,11 +50,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-REST_FRAMEWORK = {
-	'DEFAULT_PERMISSION_CLASSES': [
-	    'rest_framework_permissions.AllowAny',
-	]
-}
+# REST_FRAMEWORK = {
+# 	'DEFAULT_PERMISSION_CLASSES': [
+# 	        'rest_framework_permissions.AllowAny',
+# 	]
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

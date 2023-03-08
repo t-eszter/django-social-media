@@ -20,4 +20,6 @@ urlpatterns = [
     # chat
     path('chat', views.chatIndex, name='chatIndex'),
     path('chat/<str:room_name>/', views.room, name='room'),
+    # api
+    path('api/profiles/', views.profileList.as_view()),
 ]

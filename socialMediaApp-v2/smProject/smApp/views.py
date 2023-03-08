@@ -9,6 +9,12 @@ from django.contrib.auth.decorators import login_required
 from itertools import chain
 import random
 
+from .serializers import profileSerializer
+from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
 # Create your views here.
 @login_required(login_url='sign_in')
 
@@ -247,3 +253,14 @@ def room(request, room_name):
         'room_name': room_name
     })
 
+
+# API views
+
+class profileList(APIView):
+    def get(self, request):
+        profile = Profile.objects.all()
+        serializer = profileSerializer(profile, many=True)
+        return Response(serializer.data)
+
+    def post(self):
+        pass
