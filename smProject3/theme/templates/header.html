@@ -1,90 +1,63 @@
 
 {% block header %}
-<header class="bg-black py-4 mx-8 shadow max-h-20 max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-between items-center fixed h-60">
+<header class="bg-black shadow max-h-20 flex justify-between items-center w-full p-4">
         <!-- logo and search bar -->
         <div id="header-left-side" class="flex flex-row items-left w-1/2">
-            <div id="logo w-1/2">
-                <a href="index.html"><h1 class="text-white font-black text-2xl tracking-wider">soci+A+lise</h1></a>
+            <div class="w-3/5 flex items-center" >
+                <a href="../"><h1 class="text-white font-black text-2xl tracking-wider">soci+A+lise</h1></a>
             </div>
-            <form action="/search" method="POST" class="w-1/2">
-                {% csrf_token %}
-                <div >
-                    <input type="text" name="username" placeholder="Search for name..." class="rounded ml-4">&nbsp; &nbsp;
-                    <button type="submit"><i class="fa fa-search fa-1x"></i></button>
-                </div>
-            </form>
+            <div class="w-2/5">
+                <form action="/search" method="POST">
+                    {% csrf_token %}
+                        <input type="text" name="username" placeholder="Search for name..." class="rounded focus:w-full">
+                        <!-- <button type="submit"><i class="fa fa-search fa-1x"></i></button> -->
+                </form>
+            </div>
         </div>
 
         <!-- Add new post button and flyout menu -->
         <div id="header-right-side" class="flex align-right">
-            <div class="relative">
-                <a id="post-button" href="#" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mr-4 px-4 py-2 rounded shadow text-white">
-                    <ion-icon name="add-circle" class="-mb-1 mr-1 opacity-90 text-xl uilus-circle"></ion-icon>  Add new post
-                </a>
-                <div id="post-menu" class="hidden bg-white border border-gray-300 p-2 absolute top-0 right-0 mt-12 w-48">
+                <a id="post-button" href="#" class="flex items-center relative bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mr-6 px-3 py-1 hover:bg-pink-500 rounded shadow text-white">
+                      Add new post</a>
+                <div id="post-menu" class="hidden p-2 absolute top-0 right-0 mt-12 w-48">
                     <!-- Hidden flyout menu with new post details -->
-                    <div class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4">
-                        <div class="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
-                            <div class="p-4">
+                    <div class="absolute z-10 mt-5 flex -translate-x-1/2 px-4">
+                        <div class="flex-auto overflow-hidden rounded bg-white shadow">
+                            <div class="p-4 m-4">
                                 <div class="px-4 py-3 -mx-5 -mt-4 mb-5 border-b">
                                     <h4>New post</h4>
                                 </div>
                 
                                 <div class="flex justify-center flex-center text-center"></div>
-                                    <div class="flex flex-col choose-upload text-center">
                                         <form action="upload" method="POST" enctype="multipart/form-data" >
                                             {% csrf_token %}
-                                            <div>
-                                                <input type="file" name="image_upload">
-                                                <textarea class="button soft-warning small" name="caption" placeholder="caption..." ></textarea>
-                                                <br>
-                                                <button class="button bg-blue-700" type="submit" >Upload</button>
+                                            <div class="flex flex-col">
+                                                <input type="file" name="image_upload" class="my-2">
+                                                <textarea class="button soft-warning small" name="caption" placeholder="caption..."  class="my-2 mb-3"></textarea>
+                                                <button class="button bg-pink-700 text-white p-3 rounded mt-3" type="submit" >Upload</button>
                                             </div>
                                         </form>
-                                    </div>
-                
-                                    <div class="uk-flex uk-flex-column choose-upload" hidden>
-                                        <div class="mx-auto flex flex-col h-24 items-center justify-center relative w-full rounded-lg">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-12">
-                                                <path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd" />
-                                            </svg>
-                                        </div>
-                                        <p class="my-3 leading-6"> Import videos from YouTube <br> Copy / Paste your video link here </p>
-                                        <form class="uk-grid-small" uk-grid>
-                                            <div class="uk-width-expand">
-                                                <input type="text" class="uk-input uk-form-small  bg-gray-200 " style="box-shadow:none" placeholder="Paste link">
-                                            </div>
-                                            <div class="uk-width-auto"> <button type="submit" class="button soft-warning -ml-2">
-                                                    Import </button> </div>
-                                        </form>
-                                        <a href="#" class="uk-text-muted mt-3 uk-link"
-                                            uk-toggle="target: .choose-upload ; animation: uk-animation-slide-left-small, uk-animation-slide-right-medium; queued: true">
-                                            Or Upload Video </a>
-                                    </div>
-                
                                 </div>
                             </div>
                         
                     </div>
                 </div>
-            </div> 
             
             <!-- Profile settings and log out -->
             <div class="lg:pr-4 relative">
                 <a id="user-button" href="#" class="rounded">
-                    <img src="{{user_profile.profile_img.url}}" width="50" height="50" alt="">
+                    {% csrf_token %}
+                    <img src="{{user_profile.profile_img.url}}" width="50" height="50" alt="User profile picture" class="object-cover h-12 w-12 rounded-full overflow-hidden">
                 </a>
 
                 <!-- Hidden flyout menu with new post details -->
-                <div id="user-menu" class="hidden bg-white border border-gray-300 p-2 w-48 absolute top-0 right-0 mt-5 z-50 inset-x-0">
-                    <div class="">
-                        <div class="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5" x-show="open">
+                <div id="user-menu" class="hidden bg-white shadow p-2 w-48 absolute mt-5 z-50">
+                        <div class="flex-auto overflow-hidden bg-white " x-show="open">
                             <ul>
                                 <li><a href="/settings"> Account setting </a> </li>
                                 <li><a href="log-out"> Log Out</a></li>
                             </ul>
                         </div>
-                    </div>
                 </div>
             </div>
             </div>
@@ -93,21 +66,23 @@
         </div>
     </div>
     <script>
-            const postButton = document.getElementById("post-button");
-            const postMenu = document.getElementById("post-menu");
-
-            postButton.addEventListener("click", function() {
-            postMenu.classList.toggle("hidden");
-            });
-
-
-            const userButton = document.getElementById("user-button");
-            const userMenu = document.getElementById("user-menu");
-
-            userButton.addEventListener("click", function() {
-            userMenu.classList.toggle("hidden");
-            });
+        const postButton = document.getElementById("post-button");
+        const postMenu = document.getElementById("post-menu");
+    
+        postButton.addEventListener("click", function() {
+        postMenu.classList.toggle("hidden");
+        });
+    
+    
+        const userButton = document.getElementById("user-button");
+        const userMenu = document.getElementById("user-menu");
+    
+        userButton.addEventListener("click", function() {
+        userMenu.classList.toggle("hidden");
+        });
     </script>
 </header>
+
+
 
 {% endblock %}

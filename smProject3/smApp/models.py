@@ -3,17 +3,10 @@ from django.contrib.auth import get_user_model
 import uuid
 from datetime import datetime
 
+# Built in Django user model, we save username, email, password here
 User = get_user_model()
 
-# Create your models here.
-class Image(models.Model):
-    name = models.CharField(max_length=256, unique=True, db_index=True)
-    image = models.FileField(blank=False)
-    thumbnail = models.FileField(blank=False)
-    
-    def __str__(self):
-        return self.name
-
+# user should have a “home” page that shows their user information and any other interesting data such as images, picture galleries or other media files. 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     userid = models.IntegerField()
@@ -24,6 +17,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+# R1 f) Users can add status updates to their home page
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -49,7 +43,8 @@ class PostLikes(models.Model):
 
     def __str__(self):
         return self.username
-   
+        
+# R1 d) Users can add other users as friends
 class Followers(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')

@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-    <title>sociAlize - Sign-in</title>
+    <title>soci+A+lize - Sign-in</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		{% tailwind_css %}
+		{% tailwind_css v='1' %}
 	</head>
     <body class="bg-white">
         <div id="wrapper" class="flex flex-col h-screen">
@@ -18,7 +18,7 @@
                             <h1 class="text-white font-black text-2xl tracking-wider">soci+A+lise</h1>
                         </a>
                         <div>
-                            <a href="/signup" class="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white font-bold">Register</a>
+                            <a href="/sign-in" class="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white font-bold">Sign in</a>
                         </div>
     
                     </div>
@@ -28,7 +28,7 @@
             <div class="flex flew-column justify-center content-center">
                 <div class="flex flex-column h-screen content-center">
                     <div class="self-center">
-                        <h1 class="text-center lg:text-3xl text-xl font-semibold  mb-6"> Log in</h1>
+                        <h1 class="text-center lg:text-3xl text-xl font-semibold  mb-6">Register new account</h1>
                         <div>
                             {% for message in messages %}
                             <p class="text-red">{{message}}</p>
@@ -36,14 +36,14 @@
                         </div>
                         <form action="" method="POST">
                             {% csrf_token %}
-                            <input type="text" name="username" placeholder="Username" class="bg-white my-4 shadow">
-                            <input type="email" name="email" placeholder="Email" class="bg-white my-4 shadow">
-                            <input type="password" name="password" placeholder="Password" class="bg-white my-4 shadow">
-                            <input type="password" name="password2" placeholder="Password again" class="bg-white my-4 shadow">
-                            <button type="submit" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3 rounded-md text-white text-xl w-full">Sign up</button>
-                            <div class="text-center mt-5 space-x-2">
-                                <p class="text-base">Do you already have an account? <a href="/sign-in" class="underline hover:text-pink-700"> Sign in </a></p>
+                            <div class="text-center flex flex-col">
+                                <input type="text" name="username" placeholder="Username" class="bg-white my-4 shadow">
+                                <input type="email" name="email" placeholder="Email" class="bg-white my-4 shadow">
+                                <input type="password" name="password" placeholder="Password" class="bg-white my-4 shadow">
+                                <input type="password" name="password2" placeholder="Password again" class="bg-white my-4 shadow">
+                                <button type="submit" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3 rounded-md text-white text-xl w-full">Sign up</button>
                             </div>
+                            <div class="inline-block mt-4 text-center">Do you already have an account?<br><a href="/sign-in" class="underline hover:text-pink-700"> Sign in </a></div>
                         </form>
                         </div>
                 </div>
