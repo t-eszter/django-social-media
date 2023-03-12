@@ -1,5 +1,6 @@
 from django.urls import include, path
 from . import views
+from . import consumers
 # from . import api
 
 urlpatterns = [
@@ -18,8 +19,10 @@ urlpatterns = [
     path('followers', views.followers, name='followers'),
     path('search', views.search, name='search'),
     # chat
-    path('chat', views.chatIndex, name='chatIndex'),
+    path('chat', views.chat, name='chat'),
     path('chat/<str:room_name>/', views.room, name='room'),
+    path('chat_with_a_friend', views.chat_with_a_friend, name='chat_with_a_friend'),
+    path('chat/private_chat/<str:room_id>/', views.private_chat, name='private_chat'),
     # api
     path('api/profiles/', views.profileList.as_view()),
 ]

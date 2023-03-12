@@ -77,11 +77,15 @@
 												<span class="block capitalize text-sm"> {{friend.bio}} </span>
 											</div>
 										</div>
-										
-										<a href="/profile/{{friend.user}}" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 "> Message </a>
+										<form action="chat_with_a_friend" method="POST" enctype="multipart/form-data">
+											{% csrf_token %}
+											<input type="hidden" value="{{friend.id}}" name="friend_id" />
+											<button type="submit" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600">Chat</button>
+										</form>
 									</div>
 									{% endfor %}
 
+						
 								</div>
 
 							</div>

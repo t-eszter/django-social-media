@@ -4,10 +4,11 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.conf import settings
 from django.shortcuts import redirect
-from .models import Profile, Post, PostLikes, Followers
+from .models import Profile, Post, PostLikes, Followers, PrivateChat
 from django.contrib.auth.decorators import login_required
 from itertools import chain
 import random
+from django.db.models import Q
 
 from .serializers import profileSerializer
 from django.shortcuts import get_object_or_404
@@ -173,13 +174,37 @@ def followers(request):
 
 
 # R1 e) Users can chat in realtime with friends
-def chatIndex(request):
+@login_required
+def chat(request):
     return render(request, 'chat/index.html')
 
 def room(request, room_name):
     return render(request, 'chat/room.html', {
         'room_name': room_name
     })
+
+# R1 e, Users can chat in realtime with friends
+def chat_with_a_friend(request):
+    if request.method == 'POST':
+        friend_id = request.POST['friend_id']
+        user = request.user
+        friend = User.objects.get(id=friend_id)
+
+        chat = PrivateChat.objects.filter(
+            Q(first_user=user, second_user=friend) | Q(first_user=friend, second_user=user)
+        ).first()
+
+        if chat:
+            room_id = chat.id
+        else:
+            new_chat = PrivateChat.objects.create(first_user=user, second_user=friend)
+            room_id = new_chat.id
+
+        return redirect('private_chat', room_id=room_id)
+
+def private_chat(request, room_id):
+    return render(request, 'chat/private_chat.html', {'room_id': room_id})
+
 
 # R1 f) Users can add status updates to their home page
 @login_required(login_url='sign_in')

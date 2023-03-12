@@ -43,7 +43,7 @@ class PostLikes(models.Model):
 
     def __str__(self):
         return self.username
-        
+
 # R1 d) Users can add other users as friends
 class Followers(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
@@ -51,3 +51,11 @@ class Followers(models.Model):
 
     def __str__(self):
         return self.follower
+
+class PrivateChat(models.Model):
+    id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
+    first_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='first_user')
+    second_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='second_user')
+
+    def __str__(self):
+        return self.id
